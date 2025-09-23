@@ -125,8 +125,8 @@ export default defineConfig((config) => {
           return null;
         },
       },
-      // Skip Cloudflare dev proxy in development to avoid workerd issues in Replit
-      config.mode !== 'test' && config.mode === 'production' && remixCloudflareDevProxy(),
+      // Skip Cloudflare dev proxy completely to avoid workerd issues in Replit
+      false && remixCloudflareDevProxy(),
       remixVitePlugin({
         future: {
           v3_fetcherPersist: true,
