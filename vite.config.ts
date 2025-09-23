@@ -77,10 +77,8 @@ export default defineConfig((config) => {
       host: '0.0.0.0',
       port: 5000,
       strictPort: true,
-      hmr: {
-        port: 5000,
-        host: '0.0.0.0'
-      }
+      hmr: false,
+      watch: null
     },
     define: {
       __COMMIT_HASH: JSON.stringify(gitInfo.commitHash),
@@ -127,7 +125,8 @@ export default defineConfig((config) => {
           return null;
         },
       },
-      config.mode !== 'test' && remixCloudflareDevProxy(),
+      // Skip Cloudflare dev proxy in development to avoid workerd issues in Replit
+      config.mode !== 'test' && config.mode === 'production' && remixCloudflareDevProxy(),
       remixVitePlugin({
         future: {
           v3_fetcherPersist: true,
