@@ -5,34 +5,37 @@
  * and cognitive operations with the existing hypergraph proof assistant architecture.
  */
 
-import { 
+import type { 
   SkinSpace, 
   SkinAtom, 
   SkinLink, 
-  SkinSpaceStatistics,
-  SkinAtomType,
-  SkinLinkType 
+  SkinSpaceStatistics
 } from './skinspace-core';
+import { SkinAtomType, SkinLinkType, SkinSpace as SkinSpaceClass } from './skinspace-core';
 
-import { 
-  SkinSpaceDataAdapter, 
-  VesselDataParser,
+import type { 
   SkinSpaceLoadResult,
   RawNode,
   RawEdge,
   RSNode,
   RSEdge
 } from './skinspace-adapters';
+import { 
+  SkinSpaceDataAdapter, 
+  VesselDataParser
+} from './skinspace-adapters';
 
-import {
-  SkinSpacePatternMiner,
-  SkinSpaceAttentionEngine,
-  SkinSpaceInferenceEngine,
+import type {
   DiscoveredPattern,
   AttentionContext,
   AttentionUpdate,
   ActivationSpread,
   InferenceResult
+} from './skinspace-cognition';
+import {
+  SkinSpacePatternMiner,
+  SkinSpaceAttentionEngine,
+  SkinSpaceInferenceEngine
 } from './skinspace-cognition';
 
 import type {
@@ -56,7 +59,7 @@ export class SkinSpaceVessel {
   private isInitialized: boolean = false;
 
   constructor() {
-    this.skinSpace = new SkinSpace();
+    this.skinSpace = new SkinSpaceClass();
     this.dataAdapter = new SkinSpaceDataAdapter(this.skinSpace);
     this.patternMiner = new SkinSpacePatternMiner(this.skinSpace);
     this.attentionEngine = new SkinSpaceAttentionEngine(this.skinSpace);

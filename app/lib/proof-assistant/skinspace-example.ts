@@ -5,13 +5,15 @@
  * for skincare formulation analysis and supply chain management.
  */
 
+import type {
+  DiscoveredPattern,
+  InferenceResult
+} from './skinspace-cognition';
 import {
   SkinSpaceVessel,
   createSampleSkinSpace,
-  SkinSpaceHelpers,
-  DiscoveredPattern,
-  InferenceResult
-} from './skinspace';
+  SkinSpaceHelpers
+} from './skinspace-integration';
 
 /**
  * Example 1: Basic SkinSpace initialization and querying

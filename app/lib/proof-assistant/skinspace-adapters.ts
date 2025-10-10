@@ -5,16 +5,16 @@
  * from the vessels data into the unified SkinSpace knowledge representation.
  */
 
-import { 
+import type { 
   SkinSpace, 
   SkinAtom, 
   SkinLink, 
   SkinAtomType, 
   SkinLinkType, 
-  SkinSpaceUtils,
   TruthValue,
   AttentionValue 
 } from './skinspace-core';
+import { SkinSpaceUtils } from './skinspace-core';
 
 /**
  * Raw data structures from CSV files

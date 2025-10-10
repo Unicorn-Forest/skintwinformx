@@ -60,7 +60,8 @@ export {
  */
 export async function createSkinSpaceFromVesselData(
   vesselDataPath: string = '/vessels/examples'
-): Promise<SkinSpaceVessel> {
+): Promise<import('./skinspace-integration').SkinSpaceVessel> {
+  const { SkinSpaceVessel } = await import('./skinspace-integration');
   const vessel = new SkinSpaceVessel();
   
   // In a real implementation, this would load data from files
@@ -73,7 +74,8 @@ export async function createSkinSpaceFromVesselData(
 /**
  * Factory function to create a SkinSpace vessel with sample data for testing
  */
-export async function createSampleSkinSpace(): Promise<SkinSpaceVessel> {
+export async function createSampleSkinSpace(): Promise<import('./skinspace-integration').SkinSpaceVessel> {
+  const { SkinSpaceVessel } = await import('./skinspace-integration');
   const vessel = new SkinSpaceVessel();
 
   // Sample RAW data (products and ingredients)
@@ -135,16 +137,16 @@ export class SkinSpaceHelpers {
    * Create a formulation analysis from ingredients list
    */
   public static async analyzeFormulation(
-    vessel: SkinSpaceVessel,
+    vessel: import('./skinspace-integration').SkinSpaceVessel,
     ingredientNames: string[]
   ): Promise<{
-    patterns: DiscoveredPattern[];
-    synergies: InferenceResult[];
+    patterns: import('./skinspace-cognition').DiscoveredPattern[];
+    synergies: import('./skinspace-cognition').InferenceResult[];
     recommendations: string[];
   }> {
     // Query for each ingredient
-    const allPatterns: DiscoveredPattern[] = [];
-    const allSynergies: InferenceResult[] = [];
+    const allPatterns: import('./skinspace-cognition').DiscoveredPattern[] = [];
+    const allSynergies: import('./skinspace-cognition').InferenceResult[] = [];
     const allRecommendations: string[] = [];
 
     for (const ingredientName of ingredientNames) {
@@ -153,7 +155,7 @@ export class SkinSpaceHelpers {
       });
 
       allPatterns.push(...result.relevantPatterns);
-      allSynergies.push(...result.inferences.filter(inf => inf.type === 'inferred_synergy'));
+      allSynergies.push(...result.inferences.filter((inf: any) => inf.type === 'inferred_synergy'));
       allRecommendations.push(...result.recommendations);
     }
 
@@ -179,7 +181,7 @@ export class SkinSpaceHelpers {
    * Analyze supply chain risks for a formulation
    */
   public static async analyzeSupplyChainRisks(
-    vessel: SkinSpaceVessel,
+    vessel: import('./skinspace-integration').SkinSpaceVessel,
     ingredientNames: string[]
   ): Promise<{
     riskScore: number;
@@ -195,11 +197,11 @@ export class SkinSpaceHelpers {
     
     // Calculate overall risk metrics
     const vulnerableIngredients = result.inferences
-      .filter(inf => inf.type === 'missing_supply_link')
-      .map(inf => inf.description);
+      .filter((inf: any) => inf.type === 'missing_supply_link')
+      .map((inf: any) => inf.description);
 
     const supplierPatterns = result.relevantPatterns
-      .filter(p => p.type === 'supply_vulnerability');
+      .filter((p: any) => p.type === 'supply_vulnerability');
 
     const riskScore = supplierPatterns.length > 0 
       ? supplierPatterns[0].strength 
@@ -209,7 +211,7 @@ export class SkinSpaceHelpers {
       riskScore,
       vulnerableIngredients,
       supplierDiversity: analytics.networkCoverage.rsNodes,
-      recommendations: result.recommendations.filter(rec => 
+      recommendations: result.recommendations.filter((rec: any) => 
         rec.toLowerCase().includes('supply') || rec.toLowerCase().includes('risk')
       )
     };
@@ -219,12 +221,12 @@ export class SkinSpaceHelpers {
    * Find alternative ingredients for substitution
    */
   public static async findAlternatives(
-    vessel: SkinSpaceVessel,
+    vessel: import('./skinspace-integration').SkinSpaceVessel,
     targetIngredient: string,
     functionalCategory?: string
   ): Promise<{
     alternatives: string[];
-    substitutionGroups: DiscoveredPattern[];
+    substitutionGroups: import('./skinspace-cognition').DiscoveredPattern[];
     confidence: number;
   }> {
     const result = await vessel.query(`alternatives for ${targetIngredient}`, {
@@ -232,7 +234,7 @@ export class SkinSpaceHelpers {
     });
 
     const substitutionPatterns = result.relevantPatterns
-      .filter(p => p.type === 'substitution_group');
+      .filter((p: any) => p.type === 'substitution_group');
 
     const alternatives: string[] = [];
     let totalConfidence = 0;
@@ -265,7 +267,7 @@ export class SkinSpaceHelpers {
    * Generate formulation optimization suggestions
    */
   public static async optimizeFormulation(
-    vessel: SkinSpaceVessel,
+    vessel: import('./skinspace-integration').SkinSpaceVessel,
     currentIngredients: string[],
     targetEffects: string[]
   ): Promise<{
@@ -280,7 +282,7 @@ export class SkinSpaceHelpers {
     );
 
     const synergyPatterns = result.relevantPatterns
-      .filter(p => p.type === 'formulation_synergy');
+      .filter((p: any) => p.type === 'formulation_synergy');
 
     const additions: string[] = [];
     const removals: string[] = [];
@@ -290,7 +292,7 @@ export class SkinSpaceHelpers {
     // Analyze synergy patterns for additions
     for (const pattern of synergyPatterns) {
       const patternIngredients = pattern.atoms
-        .map(atomId => vessel.getSkinSpace().getAtom(atomId)?.name)
+        .map((atomId: any) => vessel.getSkinSpace().getAtom(atomId)?.name)
         .filter(Boolean) as string[];
 
       const missingFromFormulation = patternIngredients

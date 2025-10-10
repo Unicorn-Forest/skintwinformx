@@ -8,16 +8,15 @@
  * - Knowledge discovery
  */
 
-import {
+import type {
   SkinSpace,
   SkinAtom,
   SkinLink,
-  SkinAtomType,
-  SkinLinkType,
   TruthValue,
   AttentionValue,
   SkinAtomPattern
 } from './skinspace-core';
+import { SkinAtomType, SkinLinkType } from './skinspace-core';
 
 /**
  * Pattern Learning Engine - discovers patterns in the SkinSpace
