@@ -18,3 +18,6 @@ export * from './formal-logic';
 // Enhanced OpenCoq-inspired components
 export * from './skin-model-axioms';
 export * from './opencoq-integration';
+
+// OpenCog-inspired SkinSpace - unified knowledge representation
+export * from './skinspace';
