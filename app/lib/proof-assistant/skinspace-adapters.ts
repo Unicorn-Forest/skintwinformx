@@ -9,12 +9,10 @@ import type {
   SkinSpace, 
   SkinAtom, 
   SkinLink, 
-  SkinAtomType, 
-  SkinLinkType, 
   TruthValue,
   AttentionValue 
 } from './skinspace-core';
-import { SkinSpaceUtils } from './skinspace-core';
+import { SkinSpaceUtils, SkinAtomType, SkinLinkType } from './skinspace-core';
 
 /**
  * Raw data structures from CSV files
