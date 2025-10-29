@@ -4,8 +4,12 @@
  * Manages interactions between different scales and ensures physical consistency
  */
 
-import { MultiscaleTensorOperations, MultiscaleField, ScaleType } from './multiscale-tensor-operations';
+import type { MultiscaleField, ScaleType } from './multiscale-tensor-operations';
+import { MultiscaleTensorOperations } from './multiscale-tensor-operations';
 import { SkinModelAxiomSystem } from './skin-model-axioms';
+
+// Re-export types for use in other modules
+export type { MultiscaleField, ScaleType } from './multiscale-tensor-operations';
 
 export interface ScaleModel {
   scale: ScaleType;

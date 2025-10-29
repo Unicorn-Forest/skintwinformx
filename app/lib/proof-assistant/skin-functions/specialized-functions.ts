@@ -189,17 +189,17 @@ export class SpecializedSkinFunctions {
 
   // Helper calculation methods
   private calculateMolecularBarrier(molecularState: MultiscaleField): number {
-    const avgConcentration = molecularState.data.reduce((a, b) => a + b, 0) / molecularState.data.length;
+    const avgConcentration = molecularState.data.reduce((a: number, b: number) => a + b, 0) / molecularState.data.length;
     return Math.min(1.0, avgConcentration * 0.1);
   }
 
   private calculateCellularBarrier(cellularState: MultiscaleField): number {
-    const cellDensity = cellularState.data.reduce((a, b) => a + b, 0) / cellularState.data.length;
+    const cellDensity = cellularState.data.reduce((a: number, b: number) => a + b, 0) / cellularState.data.length;
     return Math.min(1.0, cellDensity / 1000); // normalized to 1000 cells/mm³
   }
 
   private calculateTissueBarrier(tissueState: MultiscaleField): number {
-    const tissueIntegrity = tissueState.data.reduce((a, b) => a + b, 0) / tissueState.data.length;
+    const tissueIntegrity = tissueState.data.reduce((a: number, b: number) => a + b, 0) / tissueState.data.length;
     return Math.min(1.0, tissueIntegrity / 100);
   }
 
@@ -264,12 +264,12 @@ export class SpecializedSkinFunctions {
   }
 
   private calculateProliferation(cellularState: MultiscaleField): number {
-    const cellActivity = cellularState.data.reduce((a, b) => a + b, 0) / cellularState.data.length;
+    const cellActivity = cellularState.data.reduce((a: number, b: number) => a + b, 0) / cellularState.data.length;
     return Math.min(1.0, cellActivity / 1000);
   }
 
   private calculateRemodeling(tissueState: MultiscaleField): number {
-    const tissueIntegrity = tissueState.data.reduce((a, b) => a + b, 0) / tissueState.data.length;
+    const tissueIntegrity = tissueState.data.reduce((a: number, b: number) => a + b, 0) / tissueState.data.length;
     return Math.min(1.0, tissueIntegrity / 100);
   }
 
