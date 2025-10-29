@@ -33,10 +33,11 @@ The SKIN-TWIN reactor vessel formulation engine orchestrates the generation and 
 The SKIN-TWIN system leverages comprehensive hypergraph analysis to optimize formulation strategies:
 
 ### Network Statistics
-- **313 nodes**: 28 products, 171 ingredients, 23 suppliers, 91 supply relationships
-- **612 edges**: 521 formulation relationships, 91 supply connections
-- **Platform ingredients**: 10 core ingredients shared across 70%+ of products
-- **Infrastructure backbone**: De Ion Water used in 89% of formulations
+- **199 formulation nodes**: 28 products, 171 ingredients
+- **114 supply chain nodes**: 23 suppliers, 91 ingredients
+- **612 total edges**: 521 formulation relationships, 91 supply connections
+- **Platform ingredients**: Core ingredients shared across 70%+ of products
+- **Infrastructure backbone**: De Ion Water (R010000) used in 50 out of 56 products (89%)
 
 ### Key Insights
 - **Supply Chain Risk**: 100% single-sourced ingredients requiring urgent dual-sourcing strategy
