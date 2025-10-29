@@ -12,8 +12,9 @@ import type {
 import {
   SkinSpaceVessel,
   createSampleSkinSpace,
-  SkinSpaceHelpers
-} from './skinspace-integration';
+  SkinSpaceHelpers,
+  createSkinSpaceFromVesselData
+} from './skinspace';
 
 /**
  * Example 1: Basic SkinSpace initialization and querying
@@ -195,7 +196,7 @@ export async function advancedPatternMiningExample(): Promise<void> {
 export async function attentionFocusExample(): Promise<void> {
   console.log('\n=== Attention & Cognitive Focus Example ===');
 
-  const vessel = await createSkinSpace();
+  const vessel = await createSkinSpaceFromVesselData();
   
   // Initialize with sample data
   await vessel.initializeFromVesselData(
@@ -246,7 +247,7 @@ export async function hypergraphIntegrationExample(): Promise<void> {
       {
         id: 'proof_node_1',
         type: 'ingredient' as const,
-        properties: new Map([
+        properties: new Map<string, any>([
           ['label', 'Hyaluronic Acid'],
           ['concentration', 2.0]
         ]),
@@ -255,7 +256,7 @@ export async function hypergraphIntegrationExample(): Promise<void> {
       {
         id: 'proof_node_2', 
         type: 'effect' as const,
-        properties: new Map([
+        properties: new Map<string, any>([
           ['label', 'Hydration'],
           ['magnitude', 0.7]
         ]),
@@ -311,18 +312,6 @@ export async function runAllSkinSpaceExamples(): Promise<void> {
     console.error('❌ Error running SkinSpace examples:', error);
   }
 }
-
-// Export individual examples for selective usage
-export {
-  basicSkinSpaceExample,
-  formulationAnalysisExample,
-  supplyChainAnalysisExample,
-  ingredientAlternativesExample,
-  formulationOptimizationExample,
-  advancedPatternMiningExample,
-  attentionFocusExample,
-  hypergraphIntegrationExample
-};
 
 // If running as a script
 if (typeof require !== 'undefined' && require.main === module) {

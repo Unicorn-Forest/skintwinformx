@@ -433,7 +433,7 @@ export class SkinSpaceVessel {
   }
 
   private analyzeSupplyChain(ingredientIds: string[]): SupplyChainAnalysis {
-    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as SkinLink[];
+    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as unknown as SkinLink[];
     
     const analysis: SupplyChainAnalysis = {
       totalIngredients: ingredientIds.length,

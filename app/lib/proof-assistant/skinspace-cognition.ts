@@ -37,7 +37,7 @@ export class SkinSpacePatternMiner {
     const patterns: DiscoveredPattern[] = [];
     
     // Get all Contains links (ingredient-product relationships)
-    const containsLinks = this.skinSpace.getAtomsByType(SkinLinkType.CONTAINS_LINK) as SkinLink[];
+    const containsLinks = this.skinSpace.getAtomsByType(SkinLinkType.CONTAINS_LINK) as unknown as SkinLink[];
     
     // Group ingredients by products
     const productIngredients = new Map<string, Set<string>>();
@@ -86,7 +86,7 @@ export class SkinSpacePatternMiner {
     const patterns: DiscoveredPattern[] = [];
     
     // Get all supply relationships
-    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as SkinLink[];
+    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as unknown as SkinLink[];
     
     // Find single-supplier dependencies
     const ingredientSuppliers = new Map<string, Set<string>>();
@@ -102,7 +102,7 @@ export class SkinSpacePatternMiner {
 
     // Find vulnerable ingredients (single supplier)
     const vulnerableIngredients: string[] = [];
-    for (const [ingredientId, suppliers] of ingredientSuppliers) {
+    for (const [ingredientId, suppliers] of Array.from(ingredientSuppliers)) {
       if (suppliers.size === 1) {
         vulnerableIngredients.push(ingredientId);
       }
@@ -146,7 +146,7 @@ export class SkinSpacePatternMiner {
     }
 
     // Find substitution groups
-    for (const [category, ingredientIds] of ingredientsByFunction) {
+    for (const [category, ingredientIds] of Array.from(ingredientsByFunction)) {
       if (ingredientIds.length > 1) {
         const pattern: DiscoveredPattern = {
           id: `substitution_${category}_${Date.now()}`,
@@ -177,7 +177,7 @@ export class SkinSpacePatternMiner {
     // Generate 1-itemsets
     const itemCounts = new Map<string, number>();
     for (const transaction of transactions) {
-      for (const item of transaction) {
+      for (const item of Array.from(transaction)) {
         itemCounts.set(item, (itemCounts.get(item) || 0) + 1);
       }
     }
@@ -185,7 +185,7 @@ export class SkinSpacePatternMiner {
     let frequentItemsets: FrequentItemset[] = [];
     
     // Filter frequent 1-itemsets
-    for (const [item, count] of itemCounts) {
+    for (const [item, count] of Array.from(itemCounts)) {
       if (count >= minFrequency) {
         frequentItemsets.push({
           items: [item],
@@ -207,7 +207,7 @@ export class SkinSpacePatternMiner {
       }
     }
 
-    for (const [pairKey, count] of pairs) {
+    for (const [pairKey, count] of Array.from(pairs)) {
       if (count >= minFrequency) {
         frequentItemsets.push({
           items: pairKey.split('|'),
@@ -231,7 +231,7 @@ export class SkinSpacePatternMiner {
     let firstOccurrences = 0;
     let bothOccurrences = 0;
 
-    for (const ingredients of productIngredients.values()) {
+    for (const ingredients of Array.from(productIngredients.values())) {
       if (ingredients.has(first)) {
         firstOccurrences++;
         if (rest.every(item => ingredients.has(item))) {
@@ -250,7 +250,7 @@ export class SkinSpacePatternMiner {
 
   private calculateVulnerabilitySignificance(vulnerableIngredients: string[]): number {
     // Calculate based on ingredient usage frequency in formulations
-    const containsLinks = this.skinSpace.getAtomsByType(SkinLinkType.CONTAINS_LINK) as SkinLink[];
+    const containsLinks = this.skinSpace.getAtomsByType(SkinLinkType.CONTAINS_LINK) as unknown as SkinLink[];
     let totalUsage = 0;
     
     for (const ingredientId of vulnerableIngredients) {
@@ -506,7 +506,7 @@ export class SkinSpaceInferenceEngine {
     
     // Find ingredients without suppliers
     const ingredients = this.skinSpace.getAtomsByType(SkinAtomType.INGREDIENT_NODE);
-    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as SkinLink[];
+    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as unknown as SkinLink[];
     
     const suppliedIngredients = new Set(
       supplyLinks.map(link => link.outgoing[0])
@@ -550,7 +550,7 @@ export class SkinSpaceInferenceEngine {
         // Check if synergy link already exists
         const existingSynergy = this.skinSpace.getAtomsByType(SkinLinkType.SYNERGIZES_LINK)
           .find(link => {
-            const l = link as SkinLink;
+            const l = link as unknown as SkinLink;
             return (l.outgoing[0] === atom1Id && l.outgoing[1] === atom2Id) ||
                    (l.outgoing[0] === atom2Id && l.outgoing[1] === atom1Id);
           });
@@ -582,7 +582,7 @@ export class SkinSpaceInferenceEngine {
     if (!category) return suppliers.slice(0, 3); // Return first few if no category
     
     // Find suppliers that supply similar ingredients
-    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as SkinLink[];
+    const supplyLinks = this.skinSpace.getAtomsByType(SkinLinkType.SUPPLIED_BY_LINK) as unknown as SkinLink[];
     const supplierScores = new Map<string, number>();
     
     for (const link of supplyLinks) {

@@ -522,7 +522,7 @@ export class FormulationVerificationEngine {
       evidence: [
         {
           id: `coupling_evidence_${Date.now()}`,
-          type: 'mathematical',
+          type: 'formal_logic',
           source: 'coupling_verification',
           reliability: 0.95,
           relevance: 0.9,
