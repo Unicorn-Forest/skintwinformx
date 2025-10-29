@@ -8,11 +8,14 @@
 // Core SkinSpace exports
 export {
   SkinSpace,
-  SkinAtom,
-  SkinLink,
   SkinAtomType,
   SkinLinkType,
-  SkinSpaceUtils,
+  SkinSpaceUtils
+} from './skinspace-core';
+
+export type {
+  SkinAtom,
+  SkinLink,
   TruthValue,
   AttentionValue,
   SkinAtomPattern,
@@ -22,7 +25,10 @@ export {
 // Data adapter exports
 export {
   SkinSpaceDataAdapter,
-  VesselDataParser,
+  VesselDataParser
+} from './skinspace-adapters';
+
+export type {
   SkinSpaceLoadResult,
   SkinSpaceLoadStatistics,
   RawNode,
@@ -35,7 +41,10 @@ export {
 export {
   SkinSpacePatternMiner,
   SkinSpaceAttentionEngine,
-  SkinSpaceInferenceEngine,
+  SkinSpaceInferenceEngine
+} from './skinspace-cognition';
+
+export type {
   DiscoveredPattern,
   AttentionContext,
   AttentionUpdate,
@@ -45,7 +54,10 @@ export {
 
 // Integration exports
 export {
-  SkinSpaceVessel,
+  SkinSpaceVessel
+} from './skinspace-integration';
+
+export type {
   SkinSpaceInitResult,
   SkinSpaceQueryContext,
   SkinSpaceQueryResult,

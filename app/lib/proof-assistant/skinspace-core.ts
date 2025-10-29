@@ -26,7 +26,7 @@ export interface SkinAtom {
   outgoingSet: Set<string>; // For compound atoms, references to contained atoms
 }
 
-export interface SkinLink extends SkinAtom {
+export interface SkinLink extends Omit<SkinAtom, 'type'> {
   type: SkinLinkType;
   arity: number;
   outgoing: string[]; // Array of atom IDs this link connects
@@ -120,8 +120,8 @@ export class SkinSpace {
   /**
    * Add an atom to SkinSpace
    */
-  public addAtom(atom: SkinAtom): string {
-    this.atoms.set(atom.id, atom);
+  public addAtom(atom: SkinAtom | SkinLink): string {
+    this.atoms.set(atom.id, atom as SkinAtom);
     
     // Update type index
     if (!this.typeIndex.has(atom.type)) {
@@ -213,7 +213,7 @@ export class SkinSpace {
    * Get outgoing set for a link (atoms this link references)
    */
   public getOutgoingSet(linkId: string): SkinAtom[] {
-    const link = this.atoms.get(linkId) as SkinLink;
+    const link = this.atoms.get(linkId) as unknown as SkinLink;
     if (!link || !('outgoing' in link)) return [];
 
     return link.outgoing
@@ -266,7 +266,7 @@ export class SkinSpace {
   public getStatistics(): SkinSpaceStatistics {
     const typeStats = new Map<string, number>();
     
-    for (const atom of this.atoms.values()) {
+    for (const atom of Array.from(this.atoms.values())) {
       const count = typeStats.get(atom.type) || 0;
       typeStats.set(atom.type, count + 1);
     }

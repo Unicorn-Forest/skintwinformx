@@ -7,18 +7,24 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import {
   SkinSpace,
-  SkinAtom,
-  SkinLink,
   SkinAtomType,
   SkinLinkType,
-  SkinSpaceUtils,
+  SkinSpaceUtils
+} from './skinspace-core';
+
+import type {
+  SkinAtom,
+  SkinLink,
   TruthValue,
   AttentionValue
 } from './skinspace-core';
 
 import {
   SkinSpaceDataAdapter,
-  VesselDataParser,
+  VesselDataParser
+} from './skinspace-adapters';
+
+import type {
   RawNode,
   RawEdge,
   RSNode,
@@ -123,7 +129,7 @@ describe('SkinSpace Core', () => {
       const containsLink = SkinSpaceUtils.createContainsLink(prodId, ingId, 5.0);
       const linkId = skinSpace.addAtom(containsLink);
 
-      const retrievedLink = skinSpace.getAtom(linkId) as SkinLink;
+      const retrievedLink = skinSpace.getAtom(linkId) as unknown as SkinLink;
       expect(retrievedLink).toBeDefined();
       expect(retrievedLink.type).toBe(SkinLinkType.CONTAINS_LINK);
       expect(retrievedLink.outgoing).toEqual([prodId, ingId]);
