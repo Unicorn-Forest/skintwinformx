@@ -34,7 +34,7 @@ The SKIN-TWIN system leverages comprehensive hypergraph analysis to optimize for
 
 ### Network Statistics
 - **199 formulation nodes**: 28 products, 171 ingredients
-- **114 supply chain nodes**: 23 suppliers, 91 ingredients
+- **114 supply chain nodes**: 23 suppliers, 91 ingredients (subset of the 171 formulation ingredients with known suppliers)
 - **612 total edges**: 521 formulation relationships, 91 supply connections
 - **Platform ingredients**: Core ingredients shared across 70%+ of products
 - **Infrastructure backbone**: De Ion Water (R010000) used in 50 out of 56 products (89%)
