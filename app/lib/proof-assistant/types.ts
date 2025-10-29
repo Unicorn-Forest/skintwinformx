@@ -145,7 +145,7 @@ export interface TensorField {
     units: string;
     description: string;
     timestamp: Date;
-    [key: string]: any; // Allow additional metadata properties
+    [key: string]: unknown; // Allow additional metadata properties
   };
 }
 

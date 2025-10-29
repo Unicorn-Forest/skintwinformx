@@ -224,10 +224,7 @@ export class CellularScaleModel {
           
           // Update cell type based on differentiation stage
           if (cell.differentiationStage > 0.8) {
-            const nextType = this.getNextDifferentiationStage(cell.type);
-            if (nextType !== cell.type) {
-              cell.type = nextType;
-            }
+            cell.type = this.getNextDifferentiationStage(cell.type);
           }
         }
       }
