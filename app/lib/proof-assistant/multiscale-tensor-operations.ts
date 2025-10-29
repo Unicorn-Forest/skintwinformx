@@ -6,12 +6,12 @@
 
 import type { TensorField, TensorOperation } from './tensor-operations';
 
+export type ScaleType = 'molecular' | 'cellular' | 'tissue' | 'organ';
+
 export interface MultiscaleField extends TensorField {
   scale: ScaleType;
   coupling_interfaces: CouplingInterface[];
 }
-
-export type ScaleType = 'molecular' | 'cellular' | 'tissue' | 'organ';
 
 export interface CouplingInterface {
   from_scale: ScaleType;

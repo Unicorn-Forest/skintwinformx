@@ -183,9 +183,9 @@ export function ProofAssistant({
           title: 'Multiscale Simulation Complete',
           data: {
             molecularActivity: newState.molecular.state.data.length,
-            cellularDensity: newState.cellular.state.data.reduce((a, b) => a + b, 0),
-            tissueIntegrity: newState.tissue.state.data.reduce((a, b) => a + b, 0),
-            organFunction: newState.organ.state.data.reduce((a, b) => a + b, 0)
+            cellularDensity: newState.cellular.state.data.reduce((a: number, b: number) => a + b, 0),
+            tissueIntegrity: newState.tissue.state.data.reduce((a: number, b: number) => a + b, 0),
+            organFunction: newState.organ.state.data.reduce((a: number, b: number) => a + b, 0)
           }
         }
       ]);
@@ -339,7 +339,7 @@ export function ProofAssistant({
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         {Object.entries(result.data).map(([key, value]) => (
                           <div key={key}>
-                            <span className="font-medium">{key.replace(/_/g, ' ')}:</span> {value}
+                            <span className="font-medium">{key.replace(/_/g, ' ')}:</span> {String(value)}
                           </div>
                         ))}
                       </div>
@@ -360,7 +360,7 @@ export function ProofAssistant({
                       <div className="grid grid-cols-2 gap-2 text-sm">
                         {Object.entries(result.data).map(([key, value]) => (
                           <div key={key}>
-                            <span className="font-medium">{key.replace(/([A-Z])/g, ' $1')}:</span> {value}
+                            <span className="font-medium">{key.replace(/([A-Z])/g, ' $1')}:</span> {String(value)}
                           </div>
                         ))}
                       </div>

@@ -8,6 +8,9 @@
 
 import type { TensorField, TensorOperation } from './types';
 
+// Re-export types for use in other modules
+export type { TensorField, TensorOperation } from './types';
+
 /**
  * Tensor mathematics engine for skin model calculations
  */
